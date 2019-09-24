@@ -1,0 +1,16 @@
+#To use which distrubution u want to use by using which
+---
+        - hosts: test2
+          become: true
+          vars:
+                  users:
+                          - user1
+                          - user2
+                  
+          tasks:
+                  - name: adding users
+                    user:
+                            name: "{{ item }}"
+                            state: present
+                    with_items: "{{ users }}"
+                    when: ansible_distribution=="Fedora" #This is how this play will find your distrubution is fedora or not if not the play will skip all above instructions. you can set multiple distributions by using "or"
